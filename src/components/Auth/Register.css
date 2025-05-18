@@ -1,0 +1,14 @@
+.register-container {
+  background: linear-gradient(140deg, #000 0, #000 50%, #fff 50%);
+}
+@media (min-width: 576px) and (max-width: 912px) {
+  .register-container {
+    background: linear-gradient(105deg, #000 0, #000 50%, #fff 50%);
+  }
+}
+.focus\:border-t-transparent:focus {
+  border-top-color: black;
+}
+.border-t-transparent {
+  border-top-color: #b0bec5;
+}

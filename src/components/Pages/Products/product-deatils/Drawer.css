@@ -1,0 +1,10 @@
+/* Put this in your global CSS file or tailwind.css */
+.fixed-backdrop {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999 !important;
+  background-color: rgba(0, 0, 0, 0.5);
+}

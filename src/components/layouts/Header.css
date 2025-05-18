@@ -1,0 +1,13 @@
+/* Custom small scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #cbd5e0; /* Tailwind gray-300 */
+  border-radius: 10px;
+}
