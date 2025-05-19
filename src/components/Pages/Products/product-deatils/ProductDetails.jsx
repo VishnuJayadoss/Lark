@@ -42,7 +42,7 @@ import ReviewSection from "./ReviewSection.jsx";
 import NotifyPopup from "./NotifyPopup.jsx";
 import { ToastContainer, toast } from "react-toastify";
 import Cookies from "js-cookie";
-import WishlistButton from "../../Wishlist/WishlistButton.jsx";
+import WishlistButton from "../../wishlist/WishlistButton.jsx";
 import Count from "../../../layouts/Count.jsx";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
@@ -468,7 +468,7 @@ const ProductDetails = () => {
                           {colorFilter.map((item, index) => (
                             <div
                               key={index}
-                              className="flex justify-around items-center my-2  rounded-lg transition px-2  duration-300"
+                              className="flex justify-around items-center my-2 px-2 rounded-lg transition duration-300"
                             >
                               <Link
                                 to={`/product-details/${item.product_slug}`}
