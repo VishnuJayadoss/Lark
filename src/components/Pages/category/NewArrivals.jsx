@@ -5,7 +5,7 @@ import Cookies from "js-cookie";
 import axios from "../../../axios.js";
 import "../../../assets/category/tshirt.webp"; // In case you use this image in the future
 import "./Category.css";
-import WishlistButton from "../../wishlist/WishlistButton.jsx";
+import WishlistButton from "../../wishlist/WishlistButton.jsx"; 
 
 const NewArrivals = () => {
   const navigate = useNavigate();
