@@ -26,7 +26,7 @@ import NotFound from "./components/Pages/NotFound/NotFound";
 import Checkout from "./components/Pages/Checkout/Checkout";
 import ForgotPassword from "./components/Auth/ForgotPassword";
 import OtpValidations from "./components/Auth/OtpValidations";
-import InfiniteScrollExample from "./components/Pages/Category/InfiniteScrollExample";
+// import InfiniteScrollExample from "./components/Pages/Category/InfiniteScrollExample";
 import ProfileAddress from "./components/Pages/Profile/ProfileAddress";
 import Thankyou from "./components/Pages/Thankyou/Thankyou";
 
@@ -73,7 +73,6 @@ const PageRouter = () => {
         element={<ReturnandRefundPolicy />}
       />
       <Route path="/forgot-password" element={<ForgotPassword />} />
-      <Route path="/testcategory" element={<InfiniteScrollExample />} />
 
       {/* Protected Pages */}
       <Route
