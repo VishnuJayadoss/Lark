@@ -3,7 +3,7 @@ import Slider from "react-slick";
 import { Link, useParams } from "react-router-dom";
 import axios from "../../../axios.js";
 import Cookies from "js-cookie";
-import WishlistButton from "../../wishlist/WishlistButton.jsx";
+import WishlistButton from "../../Pages/wishlist/WishlistButton.jsx";
 import "./Category.css";
 import { ToastContainer } from "react-toastify";
 
