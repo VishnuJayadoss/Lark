@@ -3,7 +3,7 @@ import Slider from "react-slick";
 import { Link, useParams } from "react-router-dom";
 import axios from "../../../axios.js";
 import Cookies from "js-cookie";
-import WishlistButton from "../Wishlist/WishlistButton.jsx";
+import WishlistButton from "../../wishlist/WishlistButton.jsx";
 import "./Category.css";
 import { ToastContainer } from "react-toastify";
 
@@ -59,14 +59,14 @@ const SecondSection = () => {
 
   const ProductCard = ({ prod }) => (
     <div className="p-3">
-      <div className="relative group cursor-pointer">
+      <div className="group relative cursor-pointer">
         {/* Wishlist */}
         <div
           onClick={(e) => {
             e.preventDefault();
             e.stopPropagation();
           }}
-          className="absolute top-3 right-3 bg-theme-secondary/40 hover:bg-theme-secondary rounded-full p-1.5 z-10"
+          className="top-3 right-3 z-10 absolute bg-theme-secondary/40 hover:bg-theme-secondary p-1.5 rounded-full"
         >
           <WishlistButton
             productId={prod.id}
@@ -92,18 +92,18 @@ const SecondSection = () => {
           {/* <img
             src={prod.thumbnail_image}
             alt={prod.name}
-            className="w-full h-full object-cover transition-transform duration-300 transform group-hover:scale-105"
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 transform"
           /> */}
           <div className="mt-2 px-3">
-            <p className="text-custom-headingclr text-sm font-semibold font-headingfont">
+            <p className="font-headingfont font-semibold text-custom-headingclr text-sm">
               {prod.category_name}
             </p>
             <hr className="my-1" />
-            <p className="text-custom-headingclr/50 text-sm font-medium font-primaryfont">
+            <p className="font-primaryfont font-medium text-custom-headingclr/50 text-sm">
               {prod.name}
             </p>
             <div className="mt-2">
-              <p className="text-custom-headingclr text-md font-semibold font-headingfont">
+              <p className="font-headingfont font-semibold text-custom-headingclr text-md">
                 {prod.main_price}
               </p>
             </div>
@@ -114,11 +114,11 @@ const SecondSection = () => {
   );
 
   return (
-    <section className="category-page mx-auto md:mt-7 mt-2">
+    <section className="mx-auto mt-2 md:mt-7 category-page">
       <ToastContainer />
       {newarrivalsFirstData.length !== 0 && (
-        <div className="flex items-center justify-center py-6">
-          <h2 className="font-headingfont md:text-2xl text-xl tracking-wide uppercase font-semibold text-theme-primary">
+        <div className="flex justify-center items-center py-6">
+          <h2 className="font-headingfont font-semibold text-theme-primary text-xl md:text-2xl uppercase tracking-wide">
             New Arrivals
           </h2>
         </div>
@@ -132,7 +132,7 @@ const SecondSection = () => {
             ))}
           </Slider>
         ) : (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div className="gap-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {newarrivalsFirstData.map((prod) => (
               <ProductCard prod={prod} key={prod.id} />
             ))}

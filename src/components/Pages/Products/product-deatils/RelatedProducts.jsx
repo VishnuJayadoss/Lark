@@ -1,6 +1,6 @@
 import React from "react";
 import Slider from "react-slick";
-import WishlistButton from "../../Wishlist/WishlistButton";
+import WishlistButton from "../../wishlist/WishlistButton.jsx";
 import Count from "../../../layouts/Count";
 import { Link } from "react-router-dom";
 
@@ -52,10 +52,10 @@ const RelatedProducts = ({
   return (
     <>
       <Count triggerCount={triggerCount} />
-      <div className="container mx-auto py-2">
+      <div className="mx-auto py-2 container">
         {RelatedProducts.length !== 0 && (
           <>
-            <h3 className="font-headingfont pt-14 pb-8 md:mx-0 mx-5 text-md tracking-wide uppercase font-bold text-custom-headingclr">
+            <h3 className="mx-5 md:mx-0 pt-14 pb-8 font-headingfont font-bold text-custom-headingclr text-md uppercase tracking-wide">
               Others Also Bought
             </h3>
             <hr className="pt-8" />
@@ -71,7 +71,7 @@ const RelatedProducts = ({
                 ))}
               </Slider>
             ) : (
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="gap-4 grid grid-cols-2 md:grid-cols-4">
                 {RelatedProducts.map((items, index) => (
                   <ProductCard
                     key={items.id}
@@ -95,17 +95,17 @@ const ProductCard = ({ items, fetchData }) => {
         <div className="relative">
           <img
             src={items.thumbnail_image}
-            className="transition-transform duration-300 transform hover:scale-110"
+            className="hover:scale-110 transition-transform duration-300 transform"
             alt="Product"
           />
           <img
             src={items.thumbnail_image_second}
-            className="absolute top-0 left-0 opacity-0 transition-opacity duration-300 transform hover:opacity-100"
+            className="top-0 left-0 absolute opacity-0 hover:opacity-100 transition-opacity duration-300 transform"
             alt="Hover Product"
           />
 
           <div
-            className="absolute top-3 right-3 cursor-pointer bg-theme-secondary/40 rounded-full p-1.5"
+            className="top-3 right-3 absolute bg-theme-secondary/40 p-1.5 rounded-full cursor-pointer"
             onClick={(e) => {
               e.stopPropagation();
               e.preventDefault();
@@ -119,16 +119,16 @@ const ProductCard = ({ items, fetchData }) => {
           </div>
 
           <div className="mt-2 px-3">
-            <p className="text-custom-headingclr text-sm font-semibold font-headingfont">
+            <p className="font-headingfont font-semibold text-custom-headingclr text-sm">
               {items.name}
             </p>
             <hr className="my-1" />
-            <p className="text-custom-headingclr/50 text-sm font-medium font-themefont">
+            <p className="font-themefont font-medium text-custom-headingclr/50 text-sm">
               {items.tags}
             </p>
 
             <div className="mt-2">
-              <p className="text-custom-headingclr text-md font-semibold font-themefont">
+              <p className="font-themefont font-semibold text-custom-headingclr text-md">
                 {items.main_price}
               </p>
             </div>

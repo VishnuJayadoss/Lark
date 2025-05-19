@@ -22,7 +22,7 @@ import axios from '../../../../axios.js'
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import Cookies from 'js-cookie'
-import WishlistButton from '../../wishlist/WishlistButton.jsx'
+import WishlistButton from "../../wishlist/WishlistButton.jsx";
 import { ToastContainer, toast } from 'react-toastify'
 const ProductList = () => {
   // api call
