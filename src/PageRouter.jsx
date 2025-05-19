@@ -7,7 +7,7 @@ import Cookies from "js-cookie";
 import Home from "./components/Pages/Home/Home";
 import About from "./components/Pages/About/About";
 import Contact from "./components/Pages/Contact/Contact";
-import Category from "./components/Pages/Category/Category";
+import Category from "./components/Pages/category/Category";
 import ProductList from "./components/Pages/Products/product-list/productList";
 import ProductDetails from "./components/Pages/Products/product-deatils/ProductDetails";
 import Wishlist from "./components/Pages/Wishlist/Wishlist";
