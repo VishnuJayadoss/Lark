@@ -16,7 +16,7 @@ import {
   Typography,
   IconButton,
 } from "@material-tailwind/react";
-import "./ProductList.css";
+import "./productList.css";
 import Slider from "react-slick";
 import axios from "../../../../axios.js";
 import Skeleton from "react-loading-skeleton";
