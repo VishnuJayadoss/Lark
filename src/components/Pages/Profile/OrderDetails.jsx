@@ -11,7 +11,7 @@ import {
   Typography,
   Textarea,
 } from "@material-tailwind/react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, Link } from "react-router-dom";
 import axios from "../../../axios.js";
 import Cookies from "js-cookie";
 import OrderTimeline from "./OrderTimeline.jsx";
@@ -129,23 +129,23 @@ const OrderDetails = () => {
           {/* section 1 start*/}
           <div className="col-span-12">
             <Breadcrumbs className="bg-transparent">
-              <a
-                href="#"
+              <Link
+                to={"/"}
                 className="opacity-60 hover:text-theme-primary lg:text-sm text-xs  duration-300"
               >
-                Docs
-              </a>
-              <a
-                href="#"
+                Home
+              </Link>
+              <Link
+                to={"/orderlist"}
                 className="opacity-60 hover:text-theme-primary lg:text-sm text-xs  duration-300"
               >
-                Components
-              </a>
+                Order List
+              </Link>
               <a
                 href="#"
-                className="hover:text-theme-primary lg:text-sm text-xs duration-300"
+                className="hover:text-theme-primary lg:text-sm text-xs duration-300 capitalize"
               >
-                Breadcrumbs
+                {orderDetailsForPro.product_name}
               </a>
             </Breadcrumbs>
           </div>
@@ -297,7 +297,12 @@ const OrderDetails = () => {
       {/* content end */}
 
       {/* Review popup start */}
-      <ReviewPopup AddReview={AddReview} reviewAdd={reviewAdd} orderDetailsForPro={orderDetailsForPro}/>
+      <ReviewPopup
+        AddReview={AddReview}
+        reviewAdd={reviewAdd}
+        setReviewAdd={setReviewAdd}
+        orderDetailsForPro={orderDetailsForPro}
+      />
       {/* Review Popup end */}
 
       {/* Modal start */}

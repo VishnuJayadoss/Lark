@@ -621,7 +621,12 @@ const ProductDetails = () => {
                       <div className="mt-4 md:mt-0">
                         <button className="my-3" onClick={openRivewRight}>
                           <div className="flex items-center">
-                            <StarCount ratingCount={items.rating} />
+                            {[...Array(5)].map((_, i) => (
+                              <Star
+                                key={i}
+                                className="w-5 h-5 text-theme-primary fill-theme-primary" // Gold color
+                              />
+                            ))}
                             <p className="pl-2 text-custom-headingclr text-sm">
                               ({items.rating_count} Reviews)
                             </p>

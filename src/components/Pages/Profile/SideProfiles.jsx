@@ -117,7 +117,7 @@ const SideProfiles = () => {
               className="p-0.5"
               size="xxl"
             />
-            <h2 className="text-[10px] mt-2 tracking-wider flex justify-end text-theme-primary/70 xs:text-red-600 font-themefont mb-2">
+            {/* <h2 className="text-[10px] mt-2 tracking-wider flex justify-end text-theme-primary/70 xs:text-red-600 font-themefont mb-2">
               <span>
                 <Button
                   className="tracking-widest py-1 px-2 text-[9px] rounded-none bg-theme-primary/70"
@@ -126,7 +126,7 @@ const SideProfiles = () => {
                   Update
                 </Button>
               </span>
-            </h2>
+            </h2> */}
           </div>
 
           <div className="flex justify-center items-center flex-col mt-4">

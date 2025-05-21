@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useForm, Controller } from "react-hook-form";
 import {
   Button,
   Textarea,
@@ -7,9 +8,63 @@ import {
   IconButton,
   Rating,
 } from "@material-tailwind/react";
-import Card1 from "../../../assets/productlist/card1.webp";
+import axios from "../../../axios.js";
+import Cookies from "js-cookie";
+import { useLocation } from "react-router-dom";
+import { toast } from "react-toastify";
 
-const ReviewPopup = ({ reviewAdd, AddReview, orderDetailsForPro }) => {
+const ReviewPopup = ({
+  reviewAdd,
+  AddReview,
+  orderDetailsForPro,
+  setReviewAdd,
+}) => {
+  //   get token
+  const token = Cookies.get("token");
+  // get order_id
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const order_id = queryParams.get("order_id");
+  // const cookiesUser = JSON.parse(Cookies.get("user"));
+  // form
+  const { control, handleSubmit, register, watch, reset } = useForm({
+    defaultValues: {
+      rating: 0,
+      description: "",
+    },
+  });
+
+  const selectedRating = watch("rating");
+  const [ratingKey, setRatingKey] = useState(0);
+  const onSubmit = async (data) => {
+    console.log("Form Data:", data);
+    try {
+      const formData = {
+        ...data,
+        order_id: order_id,
+        product_id: orderDetailsForPro.product_id,
+      };
+      const res = await axios.post("/v2/reviews/submit", formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const responce = res.data;
+      console.log("review responce,", responce);
+      if (res.data?.success === true) {
+        toast.success(res.data?.message);
+        reset({ rating: 0, description: "" });
+        setRatingKey((prev) => prev + 1);
+        setReviewAdd(false);
+      }
+    } catch (error) {
+      console.log("api error", error);
+      reset({ rating: 0, description: "" });
+      setRatingKey((prev) => prev + 1);
+      setReviewAdd(false);
+    }
+  };
+
   return (
     <>
       <Dialog
@@ -56,7 +111,7 @@ const ReviewPopup = ({ reviewAdd, AddReview, orderDetailsForPro }) => {
           </div>
           <hr className="my-4" />
           <div className="flex justify-center font-themefont">
-            <form className="mb-2 p-5">
+            <form className="mb-2 p-5" onSubmit={handleSubmit(onSubmit)}>
               <div className="flex gap-2">
                 <img
                   src={orderDetailsForPro.thumbnail_image}
@@ -76,14 +131,28 @@ const ReviewPopup = ({ reviewAdd, AddReview, orderDetailsForPro }) => {
               <hr className="my-4" />
               <div className="mb-1 flex flex-col gap-6">
                 <div className="flex gap-2 items-center">
-                  <Rating value={4} />
-                  <p className="text-sm">4 out of 5</p>
+                  <Controller
+                    control={control}
+                    name="rating"
+                    render={({ field: { onChange, value } }) => (
+                      <Rating
+                        key={ratingKey}
+                        value={value}
+                        onChange={onChange}
+                      />
+                    )}
+                  />
+                  <p className="text-sm">{selectedRating} out of 5</p>{" "}
                 </div>
                 <div className="w-full">
-                  <Textarea label="Review description" />
+                  <Textarea
+                    label="Review description"
+                    {...register("comment")}
+                  />
                 </div>
               </div>
               <Button
+                type="submit"
                 className="mt-6 font-themefont tracking-widest rounded-none"
                 fullWidth
               >

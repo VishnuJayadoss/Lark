@@ -23,13 +23,16 @@ const CategoryList = () => {
 
   const fetchData = async () => {
     try {
-      setLoading(true);
+      // setLoading(true);
       const res = await axios.get(`/V4/sub-categories/${slug}`);
       const newItems = res.data?.Category?.data ?? [];
       console.log(
         "newItems",
         newItems.map((item) => item.slug)
       );
+
+      // console.log('res ponce', res.data);
+      
 
       setAllItems(newItems);
       setVisibleItems(newItems.slice(0, batchSize));

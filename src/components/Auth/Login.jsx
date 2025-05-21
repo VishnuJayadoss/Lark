@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import axios from "../../axios.js";
 import { useDispatch } from "react-redux";
 import { getPhone } from "./UserSlice.js";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 const Login = () => {
   const navigate = useNavigate();
 
@@ -199,12 +199,12 @@ const Login = () => {
                   className="!mt-4 text-center font-normal font-headingfont"
                 >
                   New User?{" "}
-                  <a
-                    href="#"
+                  <Link
+                    to={"/register"}
                     className="font-medium text-gray-900 font-headingfont"
                   >
                     Create account
-                  </a>
+                  </Link>
                 </Typography>
               </form>
             </div>

@@ -304,7 +304,7 @@ const ProductList = () => {
             <div className='grid grid-cols-12'>
               {/* filter section start */}
 
-              <div className='hidden md:block top-[13%] sticky md:col-span-3 bg-theme-secondary shadow-lg shadow-theme-primary/20 mx-3 mb-3 border-2 border-theme-primary/10 h-[500px] overflow-y-scroll thin-scrollbar scrollbar-thin'>
+              <div className='hidden md:block top-[10%] sticky md:col-span-3 bg-theme-secondary shadow-lg shadow-theme-primary/20 mx-3 mb-3 border-2 border-theme-primary/10 h-screen overflow-y-scroll thin-scrollbar scrollbar-thin'>
                 <div className='p-4 rounded-xl'>
                   {/* <h3 className="mx-2 mb-2 font-themefont text-theme-primary text-xl">
                     Categories
