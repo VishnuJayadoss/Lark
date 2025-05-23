@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Typography, Input, Button, Textarea } from "@material-tailwind/react";
 import {
   Mail,
@@ -11,15 +11,37 @@ import {
 import { useForm } from "react-hook-form";
 import axios from "../../../axios.js";
 import { ToastContainer, toast } from "react-toastify";
+import ReCAPTCHA from "react-google-recaptcha";
 
 const Contact = () => {
   const form = useForm();
   const { register, handleSubmit, reset, formState } = form;
   const { errors } = formState;
+  const [captchaValue, setCaptchaValue] = useState(null);
+  const recaptchaRef = useRef();
 
+  const handleCaptchaChange = (value) => {
+    console.log("Captcha value:", value);
+    setCaptchaValue(value);
+  };
   const onSubmit = async (data) => {
-    // console.log("contact", data);
     try {
+      if (!captchaValue) {
+        toast.error("Please complete the reCAPTCHA", {
+          position: "top-right",
+          autoClose: 3000,
+        });
+        return;
+      }
+
+      if (data.honeypot) {
+        toast.error("Bot submission detected.", {
+          position: "top-right",
+          autoClose: 3000,
+        });
+        return;
+      }
+
       const toastId = toast.loading("Sending mail...", {
         position: "top-right",
         autoClose: false,
@@ -27,8 +49,14 @@ const Contact = () => {
         draggable: true,
       });
 
-      const res = await axios.post("/mail", data);
+      const formData = {
+        ...data,
+        recaptcha_token: captchaValue,
+      };
+
+      const res = await axios.post("/mail", formData);
       const resData = res.data;
+
       if (resData?.message) {
         toast.update(toastId, {
           render: resData?.message,
@@ -38,9 +66,14 @@ const Contact = () => {
           autoClose: 5000,
         });
         reset();
+        setCaptchaValue(null);
+        recaptchaRef.current.reset();
       }
     } catch (error) {
       console.log("contact page", error);
+      toast.error("Something went wrong. Please try again.", {
+        position: "top-right",
+      });
     }
   };
 
@@ -128,6 +161,12 @@ const Contact = () => {
                     <div className="mb-6">
                       <div className="w-full max-w-sm min-w-[300px]">
                         <div className="relative">
+                          <Input
+                            type="text"
+                            {...register("honeypot")}
+                            className="hidden"
+                            autoComplete="off"
+                          />
                           <Input
                             label="Your Name"
                             className="border-t-0 focus:border-t-0"
@@ -229,6 +268,12 @@ const Contact = () => {
                       </div>
                     </div>
 
+                    <ReCAPTCHA
+                      ref={recaptchaRef}
+                      sitekey="6LeghEQrAAAAACXcC0-c1uMLYsmSF3VpKS7YVlpi"
+                      onChange={handleCaptchaChange}
+                      className="my-4"
+                    />
                     <Button
                       color="gray"
                       size="lg"

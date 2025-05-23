@@ -1,52 +1,28 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import axios from "../../../axios";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const CategoryList = () => {
-  const [allItems, setAllItems] = useState([]);
-  const [visibleItems, setVisibleItems] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [loadMoreLoading, setLoadMoreLoading] = useState(false);
-  const [hasMore, setHasMore] = useState(true);
-  const { slug } = useParams();
-  const navigate = useNavigate();
-
-  const batchSize = 4;
-
+const CategoryList = ({
+  slug,
+  hasMore,
+  loadMoreLoading,
+  loading,
+  visibleItems,
+  allItems,
+  setVisibleItems,
+  setHasMore,
+  setLoadMoreLoading,
+}) => {
   const { ref, inView } = useInView({
     threshold: 1,
     triggerOnce: false,
   });
+  // navigate
+  const navigate = useNavigate();
 
-  const fetchData = async () => {
-    try {
-      // setLoading(true);
-      const res = await axios.get(`/V4/sub-categories/${slug}`);
-      const newItems = res.data?.Category?.data ?? [];
-      console.log(
-        "newItems",
-        newItems.map((item) => item.slug)
-      );
-
-      // console.log('res ponce', res.data);
-      
-
-      setAllItems(newItems);
-      setVisibleItems(newItems.slice(0, batchSize));
-      setHasMore(newItems.length > batchSize);
-    } catch (err) {
-      console.error("Error fetching data:", err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, [slug]);
+  // loader more
 
   useEffect(() => {
     if (inView && hasMore && !loading && !loadMoreLoading) {

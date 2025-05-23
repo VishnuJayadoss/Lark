@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Typography, Input, Button, Radio } from "@material-tailwind/react";
 import { EyeOff, Eye } from "lucide-react";
 import Iconblack from "../../assets/blacklogo.svg";
@@ -10,8 +10,19 @@ import axios from "../../axios.js";
 import { useDispatch } from "react-redux";
 import { setUser } from "./UserSlice.js";
 import Cookies from "js-cookie";
+import ReCAPTCHA from "react-google-recaptcha";
 
 const Register = () => {
+  // google recaptcha start
+  const [captchaValue, setCaptchaValue] = useState(null);
+  const recaptchaRef = useRef();
+
+  const handleCaptchaChange = (value) => {
+    console.log("Captcha value:", value);
+    setCaptchaValue(value);
+  };
+  // google recaptcha end
+
   const [passwordShown, setPasswordShown] = useState(false);
   const togglePasswordVisiblity = () => setPasswordShown((cur) => !cur);
 
@@ -42,7 +53,28 @@ const Register = () => {
     console.log("formdata", data);
 
     try {
-      const res = await axios.post("/v2/auth/signup", data);
+      if (!captchaValue) {
+        toast.error("Please complete the reCAPTCHA", {
+          position: "top-right",
+          autoClose: 3000,
+        });
+        return;
+      }
+
+      if (data.honeypot) {
+        toast.error("Bot submission detected.", {
+          position: "top-right",
+          autoClose: 3000,
+        });
+        return;
+      }
+
+      const formData = {
+        ...data,
+        recaptcha_token: captchaValue,
+      };
+
+      const res = await axios.post("/v2/auth/signup", formData);
       const formres = res.data;
       console.log("formres", formres);
       if (formres.result === true) {
@@ -81,8 +113,13 @@ const Register = () => {
       }
 
       setUserDetails(formres);
+      setCaptchaValue(null);
+      recaptchaRef.current.reset();
     } catch (errors) {
       console.log("errors", errors);
+      toast.error("Something went wrong. Please try again.", {
+        position: "top-right",
+      });
     }
   };
 
@@ -472,7 +509,22 @@ const Register = () => {
                       </div>
                     </div>
                   </div> */}
-
+                  <div className="flex justify-center">
+                  <ReCAPTCHA
+                    ref={recaptchaRef}
+                    sitekey="6LeghEQrAAAAACXcC0-c1uMLYsmSF3VpKS7YVlpi"
+                    onChange={handleCaptchaChange}
+                    className="my-4"
+                  />
+                  </div>
+                  <div className="hidden">
+                    <Input
+                      type="text"
+                      {...register("honeypot")}
+                      className="hidden"
+                      autoComplete="off"
+                    />
+                  </div>
                   <Button
                     color="gray"
                     size="lg"

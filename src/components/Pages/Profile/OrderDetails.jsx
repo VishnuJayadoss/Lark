@@ -236,7 +236,8 @@ const OrderDetails = () => {
                     {orderDetailsForPro.shipping_address?.address},<br />
                     {orderDetailsForPro.shipping_address?.city} -{" "}
                     {orderDetailsForPro.shipping_address?.postal_code}, <br />
-                    {orderDetailsForPro.shipping_address?.state},
+                    {orderDetailsForPro.shipping_address?.state_name},<br />
+                    {orderDetailsForPro.shipping_address?.country_name},
                   </p>
                 </div>
 
